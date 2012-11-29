@@ -1,5 +1,7 @@
 package yahtzee;
 
+import java.util.Arrays;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Student
@@ -13,13 +15,15 @@ public class Game {
 
     public Game() {
         scoresheet = new int[Category.values().length];
+        Arrays.fill(scoresheet, -1);
     }
 
     public void allocateRoll(Category c, int... dice) {
         //calculate score
-
+        int score = c.calculateScore(dice);
 
         //store score in scoresheet
+        scoresheet[c.ordinal()] = score;
     }
 
     public int getScore(Category c) {
