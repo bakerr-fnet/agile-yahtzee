@@ -50,4 +50,12 @@ public class TestDie {
             assertTrue(die.getValue() > 0 && die.getValue() < 7);
         }
     }
+
+    public void ensure_dice_comparison_works()
+    {
+        assertFalse(new Die().equals(new Object()));
+        assertFalse(new Die(1).equals(new Die(2)));
+        assertTrue(new Die(1).equals(new Die(1)));
+    }
+
 }

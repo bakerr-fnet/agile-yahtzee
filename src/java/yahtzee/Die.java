@@ -10,6 +10,10 @@ public class Die implements IDie {
     {
         roll();
     }
+    public Die(int initialValue)
+    {
+        value = initialValue;
+    }
 
     public void roll() {
         Random r = new Random();
@@ -19,5 +23,16 @@ public class Die implements IDie {
 
     public int getValue() {
         return value;
+    }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        if (!other.getClass().equals(this.getClass()))
+        {
+        return false;
+        }
+
+        return ((Die)other).getValue() == getValue();
     }
 }
