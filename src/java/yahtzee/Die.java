@@ -13,7 +13,7 @@ public class Die implements IDie {
 
     public void roll() {
         Random r = new Random();
-        value = r.nextInt(5) + 1;
+        value = r.nextInt(6) + 1;
     }
 
 
