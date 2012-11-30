@@ -97,7 +97,7 @@ public class GameTest {
 
         userConsole.showUserCommandHelp();
 
-        //TODO: mock input
+        mockDisplay.setInput("S 9");
         String commandText = userConsole.getUserCommand();
         expected = "S 9";
         actual = commandText;
@@ -105,7 +105,7 @@ public class GameTest {
 
         UserCommand command = UserCommand.selectCommand(commandText);
         Category userSelectedCategory = userConsole.getUserSelectedCategory(command.parse(commandText));
-        expected = "1 4 3 2 5 " + System.getProperty("line.separator");
+        expected = UserConsole.HELP_TEXT;
         actual = mockDisplay.getDisplay();
         Assert.assertEquals(expected, actual);
 
@@ -114,7 +114,7 @@ public class GameTest {
         scorecard = g.getScoresheet();
         userConsole.showScorecard(scorecard);
 
-        expected = "1\tCHANCE|15" + System.getProperty("line.separator") + "9\tPAIR|" + System.getProperty("line.separator");
+        expected = "1\tCHANCE|" + System.getProperty("line.separator") + "9\tPAIR|0" + System.getProperty("line.separator");
         actual = mockDisplay.getDisplay();
         Assert.assertEquals(expected, actual);
 

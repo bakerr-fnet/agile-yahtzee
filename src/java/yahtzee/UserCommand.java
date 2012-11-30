@@ -10,11 +10,11 @@ package yahtzee;
 public enum UserCommand {
 
     ROLL {
-        String getCommandCode() { return null; }
+        String getCommandCode() { return "R"; }
         int[] parse(String input) {return null;}
     },
     HOLD {
-        String getCommandCode() { return null; }
+        String getCommandCode() { return "H"; }
         int[] parse(String input) {return null;}
     },
     ALLOCATE {
@@ -24,7 +24,7 @@ public enum UserCommand {
             if (params.length == 2) {
                 try {
                     int result = Integer.parseInt(params[1], 16);
-                    if (result >= 1 && result <= 15) return new int[] { result };
+                    if (result >= 1 && result <= 15) return new int[] { result - 1 };
                 }
                 catch (NumberFormatException e) {
                     throw new IllegalArgumentException("Incorrect parameter entered, pick again: " + params[1]);

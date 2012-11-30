@@ -1,5 +1,7 @@
 package yahtzee;
 
+import java.io.IOException;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Student
@@ -10,6 +12,6 @@ package yahtzee;
 public interface UserConsoleDisplay {
 
     void show(String output);
-    String readInput();
+    String readInput() throws IOException ;
 
 }
