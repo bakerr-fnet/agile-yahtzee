@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class DieRoller implements IDieRoller {
 
+    private Random r = new Random();
 
     public int roll() {
-        Random r = new Random();
-        return  r.nextInt(6) + 1;
+        return r.nextInt(6) + 1;
     }
 
 
