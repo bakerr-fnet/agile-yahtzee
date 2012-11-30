@@ -26,7 +26,7 @@ public class Game {
         scoresheet[c.ordinal()] = score;
     }
 
-    public int getScore(Category c) {
+    public int getScoreForCategory(Category c) {
         return scoresheet[c.ordinal()];
     }
 
