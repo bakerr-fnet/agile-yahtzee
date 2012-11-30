@@ -54,4 +54,15 @@ public class Game {
         }
         return total;
     }
+
+    public boolean isGameComplete()
+    {
+        int totalScores = 0;
+        for (int score : scoresheet)
+        {
+            if (score > -1) totalScores++;
+        }
+
+        return (totalScores == scoresheet.length);
+    }
 }

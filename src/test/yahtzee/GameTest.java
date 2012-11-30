@@ -7,6 +7,8 @@ import sun.plugin.dom.exception.InvalidStateException;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class GameTest {
 
@@ -41,12 +43,12 @@ public class GameTest {
     }
 
     @Test
-    public void can_I_play_the_most_basic_game_of_setting_the_dice_roll_to_the_score(){
+    public void can_I_play_the_most_basic_game_of_setting_the_dice_roll_to_the_score() {
 
         UserConsoleMockDisplay mockDisplay = new UserConsoleMockDisplay();
         UserConsole userConsole = new UserConsole(mockDisplay);
 
-        MockDieRoller mockDieRoller = new MockDieRoller(1,4,3,2,5);
+        MockDieRoller mockDieRoller = new MockDieRoller(1, 4, 3, 2, 5);
         Game g = new Game(mockDieRoller);
 
         int[] scorecard = g.getScoresheet();
@@ -74,12 +76,12 @@ public class GameTest {
     }
 
     @Test
-    public void can_I_select_the_category_to_put_the_score_against(){
+    public void can_I_select_the_category_to_put_the_score_against() {
 
         UserConsoleMockDisplay mockDisplay = new UserConsoleMockDisplay();
         UserConsole userConsole = new UserConsole(mockDisplay);
 
-        MockDieRoller mockDieRoller = new MockDieRoller(1,4,3,2,5);
+        MockDieRoller mockDieRoller = new MockDieRoller(1, 4, 3, 2, 5);
         Game g = new Game(mockDieRoller);
 
         int[] scorecard = g.getScoresheet();
@@ -118,5 +120,16 @@ public class GameTest {
         actual = mockDisplay.getDisplay();
         Assert.assertEquals(expected, actual);
 
+    }
+
+    @Test
+    public void test_is_complete_after_all_categories_have_been_played() {
+
+        Game g = new Game(new DieRoller());
+        for (Category c : Category.values()) {
+            assertFalse(g.isGameComplete());
+            g.allocateRoll(c, 1, 1, 1, 1, 1);
+        }
+        assertTrue(g.isGameComplete());
     }
 }
