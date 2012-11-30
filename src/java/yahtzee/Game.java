@@ -45,4 +45,13 @@ public class Game {
         return this.dice.getDice();
     }
 
+    public int getTotal() {
+        int total = 0;
+        for(int score : scoresheet)
+        {
+            if(score>0)
+                total += score;
+        }
+        return total;
+    }
 }
