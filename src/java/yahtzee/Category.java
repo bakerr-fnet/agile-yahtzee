@@ -1,5 +1,9 @@
 package yahtzee;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+
 public enum Category {
 
     CHANCE {
@@ -13,7 +17,11 @@ public enum Category {
     },
     YAHTZEE {
         public int calculateScore(int... dice) {
-            return -1;
+            int[] sortedArray = dice.clone();
+            Arrays.sort(sortedArray);
+            if(sortedArray[0]==sortedArray[4])
+                return 50;
+            return 0;
         }
     },
 
@@ -29,27 +37,32 @@ public enum Category {
 
     TWOS {
         public int calculateScore(int... dice) {
-            return -1;
+            int[] diceCounts = getInstanceCount(dice);
+            return diceCounts[1]*2;
         }
     },
     THREES {
         public int calculateScore(int... dice) {
-            return -1;
+            int[] diceCounts = getInstanceCount(dice);
+            return diceCounts[2]*3;
         }
     },
     FOURS {
         public int calculateScore(int... dice) {
-            return -1;
+            int[] diceCounts = getInstanceCount(dice);
+            return diceCounts[3]*4;
         }
     },
     FIVES {
         public int calculateScore(int... dice) {
-            return -1;
+            int[] diceCounts = getInstanceCount(dice);
+            return diceCounts[4]*5;
         }
     },
     SIXES {
         public int calculateScore(int... dice) {
-            return -1;
+            int[] diceCounts = getInstanceCount(dice);
+            return diceCounts[5]*6;
         }
     },
     PAIR {
@@ -114,12 +127,25 @@ public enum Category {
     },
     SMALL_STRAIGHT {
         public int calculateScore(int... dice) {
-            return -1;
+
+            int instances = getInstanceMask(dice);
+
+            if ((instances & 31) == 31) {
+                return 15;
+            }
+            return 0;
+
         }
     },
     LARGE_STRAIGHT {
         public int calculateScore(int... dice) {
-            return -1;
+            int instances = getInstanceMask(dice);
+
+            if ((instances & 62) == 62)
+                return 20;
+
+
+            return 0;
         }
     },
     FULL_HOUSE {
@@ -138,6 +164,20 @@ public enum Category {
             instanceCount[dice[c]-1]++;
         }
         return instanceCount;
+    }
+
+    private static int getInstanceMask(int... dice)
+    {
+        int[] instanceCount = getInstanceCount(dice);
+        int result = 0;
+        for (int i=0;i<6;i++)
+        {
+           int mask = 1 << i;
+            if (instanceCount[i] > 0)
+                result |= mask;
+        }
+
+        return result;
     }
 
 }
