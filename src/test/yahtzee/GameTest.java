@@ -1,12 +1,10 @@
 package yahtzee;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import sun.plugin.dom.exception.InvalidStateException;
 
 import java.util.Arrays;
-
-import static org.junit.Assert.assertEquals;
 
 public class GameTest {
 
@@ -53,14 +51,14 @@ public class GameTest {
         userConsole.showScorecard(scorecard);
         String expected = "1\tCHANCE|" + System.getProperty("line.separator") + "9\tPAIR|" + System.getProperty("line.separator");
         String actual = mockDisplay.getDisplay();
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
 
         int[] rolledDice = g.getDice();
 
         userConsole.showDice(rolledDice);
         expected = "1 4 3 2 5 " + System.getProperty("line.separator");
         actual = mockDisplay.getDisplay();
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
 
         g.allocateRoll(Category.CHANCE, rolledDice);
 
@@ -69,7 +67,7 @@ public class GameTest {
 
         expected = "1\tCHANCE|15" + System.getProperty("line.separator") + "9\tPAIR|" + System.getProperty("line.separator");
         actual = mockDisplay.getDisplay();
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
 
     }
 
@@ -86,37 +84,46 @@ public class GameTest {
         userConsole.showScorecard(scorecard);
         String expected = "1\tCHANCE|" + System.getProperty("line.separator") + "9\tPAIR|" + System.getProperty("line.separator");
         String actual = mockDisplay.getDisplay();
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
 
         int[] rolledDice = g.getDice();
 
         userConsole.showDice(rolledDice);
         expected = "1 4 3 2 5 " + System.getProperty("line.separator");
         actual = mockDisplay.getDisplay();
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
 
         userConsole.showUserCommandHelp();
 
-        //TODO: mock input
+        mockDisplay.setInput("S 9");
         String commandText = userConsole.getUserCommand();
         expected = "S 9";
         actual = commandText;
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
 
         UserCommand command = UserCommand.selectCommand(commandText);
         Category userSelectedCategory = userConsole.getUserSelectedCategory(command.parse(commandText));
-        expected = "1 4 3 2 5 " + System.getProperty("line.separator");
+        expected = UserConsole.HELP_TEXT;
         actual = mockDisplay.getDisplay();
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
 
         g.allocateRoll(userSelectedCategory, rolledDice);
 
         scorecard = g.getScoresheet();
         userConsole.showScorecard(scorecard);
 
-        expected = "1\tCHANCE|15" + System.getProperty("line.separator") + "9\tPAIR|" + System.getProperty("line.separator");
+        expected = "1\tCHANCE|" + System.getProperty("line.separator") + "9\tPAIR|0" + System.getProperty("line.separator");
         actual = mockDisplay.getDisplay();
-        Assert.assertEquals(expected, actual);
+        assertEquals(expected, actual);
+    }
 
+    @Test
+    public void test_is_complete_after_all_categories_have_been_played() {
+        Game g = new Game(new DieRoller());
+        for (Category c : Category.values()) {
+            assertFalse(g.isGameComplete());
+            g.allocateRoll(c, 1, 1, 1, 1, 1);
+        }
+        assertTrue(g.isGameComplete());
     }
 }

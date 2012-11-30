@@ -150,7 +150,26 @@ public enum Category {
     },
     FULL_HOUSE {
         public int calculateScore(int... dice) {
-            return -1;
+            int[] locs = {0,0,0,0,0,0};
+            for(int d : dice)
+            {
+                locs[d]++;
+            }
+
+            boolean twoFound = false;
+            boolean threeFound = false;
+            for(int d : dice)
+            {
+                if(d==3)
+                    threeFound = true;
+                if(d ==2)
+                    twoFound = true;
+            }
+
+            if(twoFound&&threeFound)
+                return 25;
+            else
+                return  0;
         }
     };
 
