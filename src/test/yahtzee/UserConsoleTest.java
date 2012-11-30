@@ -1,5 +1,6 @@
 package yahtzee;
 
+import com.sun.org.apache.xpath.internal.jaxp.JAXPVariableStack;
 import org.junit.Assert;
 import org.junit.Test;
 
