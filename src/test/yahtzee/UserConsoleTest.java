@@ -27,4 +27,20 @@ public class UserConsoleTest {
         String actual = mockDisplay.getDisplay();
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void can_I_see_the_dice(){
+        UserConsoleMockDisplay mockDisplay = new UserConsoleMockDisplay();
+        UserConsole userConsole = new UserConsole(mockDisplay);
+
+        MockDieRoller mockDieRoller = new MockDieRoller(1,4,3,2,5);
+        Dice dice = new Dice(mockDieRoller);
+
+        int[] rolledDice = dice.getDice();
+
+        userConsole.showDice(rolledDice);
+        String expected = "1 4 3 2 5 " + System.getProperty("line.separator");
+        String actual = mockDisplay.getDisplay();
+        Assert.assertEquals(expected, actual);
+    }
 }

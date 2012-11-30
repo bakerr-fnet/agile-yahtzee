@@ -13,6 +13,10 @@ public class ConsoleYahtzeeApp {
         Game game = new Game(new DieRoller());
         UserConsole console = new UserConsole(new UserConsoleSystemDisplay());
         console.showScorecard(game.getScoresheet());
+        int[] rolledDice = game.getDice();
+        console.showDice(rolledDice);
+        game.allocateRoll(Category.CHANCE, rolledDice);
+        console.showScorecard(game.getScoresheet());
     }
 
 }

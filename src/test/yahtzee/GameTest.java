@@ -1,6 +1,9 @@
 package yahtzee;
 
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
@@ -32,5 +35,38 @@ public class GameTest {
         Game g = new Game(dieRoller);
         g.allocateRoll(Category.CHANCE, 1, 1, 1, 1, 1);
         assertEquals(5, g.getScoreForCategory(Category.CHANCE));
+    }
+
+    @Test
+    public void can_I_play_the_most_basic_game_of_setting_the_dice_roll_to_the_score(){
+
+        UserConsoleMockDisplay mockDisplay = new UserConsoleMockDisplay();
+        UserConsole userConsole = new UserConsole(mockDisplay);
+
+        MockDieRoller mockDieRoller = new MockDieRoller(1,4,3,2,5);
+        Game g = new Game(mockDieRoller);
+
+        int[] scorecard = g.getScoresheet();
+        userConsole.showScorecard(scorecard);
+        String expected = "CHANCE|" + System.getProperty("line.separator");
+        String actual = mockDisplay.getDisplay();
+        Assert.assertEquals(expected, actual);
+
+        int[] rolledDice = g.getDice();
+
+        userConsole.showDice(rolledDice);
+        expected = "1 4 3 2 5 " + System.getProperty("line.separator");
+        actual = mockDisplay.getDisplay();
+        Assert.assertEquals(expected, actual);
+
+        g.allocateRoll(Category.CHANCE, rolledDice);
+
+        scorecard = g.getScoresheet();
+        userConsole.showScorecard(scorecard);
+
+        expected = "CHANCE|15" + System.getProperty("line.separator");
+        actual = mockDisplay.getDisplay();
+        Assert.assertEquals(expected, actual);
+
     }
 }

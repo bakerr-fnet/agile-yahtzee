@@ -32,4 +32,14 @@ public class UserConsole {
         display.show(output.toString());
     }
 
+    public void showDice(int[] di){
+        StringBuilder output = new StringBuilder();
+        for (int dice:di){
+            output.append(dice);
+            output.append(" ");
+        }
+        output.append(System.getProperty("line.separator"));
+        display.show(output.toString());
+    }
+
 }

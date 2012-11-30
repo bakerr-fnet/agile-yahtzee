@@ -36,4 +36,8 @@ public class Game {
         return scoresheet;
     }
 
+    public int[] getDice(){
+        return this.dice.getDice();
+    }
+
 }
