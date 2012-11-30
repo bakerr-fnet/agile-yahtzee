@@ -11,9 +11,11 @@ import java.util.Arrays;
  */
 public class Game {
 
+    private Dice dice;
     private int[] scoresheet;
 
-    public Game() {
+    public Game(IDieRoller dieroller) {
+        dice = new Dice(dieroller);
         scoresheet = new int[Category.values().length];
         Arrays.fill(scoresheet, -1);
     }
