@@ -1,5 +1,7 @@
 package yahtzee;
 
+import java.io.IOException;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Student
@@ -9,6 +11,12 @@ package yahtzee;
  */
 public class UserConsole {
 
+    public static String HELP_TEXT = "enter S and the number next to the category to put the score against it\n" +
+            "enter H and the number of the dice (1 to 5)to hold it\n" +
+            "enter R to roll the dice\n" +
+            "Example: S 9  <--  store score against PAIR\n" +
+            ">";
+
     UserConsoleDisplay display;
 
     public UserConsole(UserConsoleDisplay display) {
@@ -16,20 +24,17 @@ public class UserConsole {
     }
 
     public String getUserCommand(){
-        return display.readInput();
+        try {
+            return display.readInput();
+        }
+        catch (IOException e) {
+            System.err.println("Unable to read user input, please try again");
+            return "";
+        }
     }
 
     public void showUserCommandHelp(){
-        StringBuilder output = new StringBuilder();
-        output.append("enter S and the number next to the category to put the score against it");
-        output.append(System.getProperty("line.separator"));
-        output.append("enter H and the number of the dice (1 to 5)to hold it");
-        output.append(System.getProperty("line.separator"));
-        output.append("enter R to roll the dice");
-        output.append(System.getProperty("line.separator"));
-        output.append("Example: S 9  <--  store score against PAIR");
-        output.append(System.getProperty("line.separator"));
-        display.show(output.toString());
+        display.show(HELP_TEXT);
     }
     public void showScorecard(int[] scorecard) {
         StringBuilder output = new StringBuilder();

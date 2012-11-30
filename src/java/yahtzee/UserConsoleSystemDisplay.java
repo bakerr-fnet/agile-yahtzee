@@ -1,5 +1,9 @@
 package yahtzee;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Student
@@ -10,11 +14,11 @@ package yahtzee;
 public class UserConsoleSystemDisplay implements UserConsoleDisplay {
 
     public void show(String output) {
-        System.console().writer().write(output);
+        System.out.print(output);
     }
 
-    public String readInput(){
-        return System.console().readLine();
+    public String readInput() throws IOException {
+        return new BufferedReader(new InputStreamReader(System.in)).readLine();
     }
 
 }
