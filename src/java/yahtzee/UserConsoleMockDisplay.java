@@ -10,13 +10,25 @@ package yahtzee;
 public class UserConsoleMockDisplay implements UserConsoleDisplay {
 
     String output;
+    String input;
 
     public void show(String output) {
         this.output = output;
     }
 
+    public String readInput(){
+        return input;
+    }
+
+
+    //Mock helpers
+
     public String getDisplay() {
         return output;
+    }
+
+    public void setInput(String input) {
+        this.input = input;
     }
 
 }

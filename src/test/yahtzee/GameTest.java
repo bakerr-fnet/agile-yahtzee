@@ -48,7 +48,7 @@ public class GameTest {
 
         int[] scorecard = g.getScoresheet();
         userConsole.showScorecard(scorecard);
-        String expected = "CHANCE|" + System.getProperty("line.separator");
+        String expected = "1\tCHANCE|" + System.getProperty("line.separator") + "9\tPAIR|" + System.getProperty("line.separator");
         String actual = mockDisplay.getDisplay();
         Assert.assertEquals(expected, actual);
 
@@ -64,7 +64,54 @@ public class GameTest {
         scorecard = g.getScoresheet();
         userConsole.showScorecard(scorecard);
 
-        expected = "CHANCE|15" + System.getProperty("line.separator");
+        expected = "1\tCHANCE|15" + System.getProperty("line.separator") + "9\tPAIR|" + System.getProperty("line.separator");
+        actual = mockDisplay.getDisplay();
+        Assert.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void can_I_select_the_category_to_put_the_score_against(){
+
+        UserConsoleMockDisplay mockDisplay = new UserConsoleMockDisplay();
+        UserConsole userConsole = new UserConsole(mockDisplay);
+
+        MockDieRoller mockDieRoller = new MockDieRoller(1,4,3,2,5);
+        Game g = new Game(mockDieRoller);
+
+        int[] scorecard = g.getScoresheet();
+        userConsole.showScorecard(scorecard);
+        String expected = "1\tCHANCE|" + System.getProperty("line.separator") + "9\tPAIR|" + System.getProperty("line.separator");
+        String actual = mockDisplay.getDisplay();
+        Assert.assertEquals(expected, actual);
+
+        int[] rolledDice = g.getDice();
+
+        userConsole.showDice(rolledDice);
+        expected = "1 4 3 2 5 " + System.getProperty("line.separator");
+        actual = mockDisplay.getDisplay();
+        Assert.assertEquals(expected, actual);
+
+        userConsole.showUserCommandHelp();
+
+        //TODO: mock input
+        String commandText = userConsole.getUserCommand();
+        expected = "S 9";
+        actual = commandText;
+        Assert.assertEquals(expected, actual);
+
+        UserCommand command = UserCommand.selectCommand(commandText);
+        Category userSelectedCategory = userConsole.getUserSelectedCategory(command.parse(commandText));
+        expected = "1 4 3 2 5 " + System.getProperty("line.separator");
+        actual = mockDisplay.getDisplay();
+        Assert.assertEquals(expected, actual);
+
+        g.allocateRoll(userSelectedCategory, rolledDice);
+
+        scorecard = g.getScoresheet();
+        userConsole.showScorecard(scorecard);
+
+        expected = "1\tCHANCE|15" + System.getProperty("line.separator") + "9\tPAIR|" + System.getProperty("line.separator");
         actual = mockDisplay.getDisplay();
         Assert.assertEquals(expected, actual);
 

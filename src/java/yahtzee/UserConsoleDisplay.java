@@ -10,5 +10,6 @@ package yahtzee;
 public interface UserConsoleDisplay {
 
     void show(String output);
+    String readInput();
 
 }

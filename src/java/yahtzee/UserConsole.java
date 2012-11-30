@@ -15,19 +15,40 @@ public class UserConsole {
         this.display = display;
     }
 
+    public String getUserCommand(){
+        return display.readInput();
+    }
+
+    public void showUserCommandHelp(){
+        StringBuilder output = new StringBuilder();
+        output.append("enter S and the number next to the category to put the score against it");
+        output.append(System.getProperty("line.separator"));
+        output.append("enter H and the number of the dice (1 to 5)to hold it");
+        output.append(System.getProperty("line.separator"));
+        output.append("enter R to roll the dice");
+        output.append(System.getProperty("line.separator"));
+        output.append("Example: S 9  <--  store score against PAIR");
+        output.append(System.getProperty("line.separator"));
+        display.show(output.toString());
+    }
     public void showScorecard(int[] scorecard) {
         StringBuilder output = new StringBuilder();
 
-        output.append(Category.CHANCE).append("|");
-
-        int score = scorecard[Category.CHANCE.ordinal()];
-        if (score != -1) output.append(score);
-        output.append(System.getProperty("line.separator"));
-
-        /*
         for (Category c : Category.values()) {
-            output.append(c).append("|").append(scorecard[c.ordinal()]);
-        }*/
+            switch(c){
+                case CHANCE :
+                case PAIR :
+                    output.append(Integer.toHexString(c.ordinal() + 1));
+                    output.append("\t");
+                    output.append(c);
+                    output.append("|");
+                    int score = scorecard[c.ordinal()];
+                    if (score != -1) output.append(score);
+                    output.append(System.getProperty("line.separator"));
+                    break;
+                default:
+            }
+        }
 
         display.show(output.toString());
     }
@@ -40,6 +61,10 @@ public class UserConsole {
         }
         output.append(System.getProperty("line.separator"));
         display.show(output.toString());
+    }
+
+    public Category getUserSelectedCategory(int[] category) {
+        return Category.values()[category[0]];
     }
 
 }

@@ -10,7 +10,11 @@ package yahtzee;
 public class UserConsoleSystemDisplay implements UserConsoleDisplay {
 
     public void show(String output) {
-        System.out.print(output);
+        System.console().writer().write(output);
+    }
+
+    public String readInput(){
+        return System.console().readLine();
     }
 
 }

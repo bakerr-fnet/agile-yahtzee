@@ -23,7 +23,7 @@ public class UserConsoleTest {
         int[] scorecard = new int[15];
         Arrays.fill(scorecard, -1);
         userConsole.showScorecard(scorecard);
-        String expected = "CHANCE|" + System.getProperty("line.separator");
+        String expected = "1\tCHANCE|" + System.getProperty("line.separator") + "9\tPAIR|" + System.getProperty("line.separator");
         String actual = mockDisplay.getDisplay();
         Assert.assertEquals(expected, actual);
     }
@@ -40,6 +40,19 @@ public class UserConsoleTest {
 
         userConsole.showDice(rolledDice);
         String expected = "1 4 3 2 5 " + System.getProperty("line.separator");
+        String actual = mockDisplay.getDisplay();
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void can_I_see_an_empty_scoresheet_with_chance_and_one_pair(){
+        //need a mock for system.out
+        UserConsoleMockDisplay mockDisplay = new UserConsoleMockDisplay();
+        UserConsole userConsole = new UserConsole(mockDisplay);
+        int[] scorecard = new int[15];
+        Arrays.fill(scorecard, -1);
+        userConsole.showScorecard(scorecard);
+        String expected = "1\tCHANCE|" + System.getProperty("line.separator") + "9\tPAIR|" + System.getProperty("line.separator");
         String actual = mockDisplay.getDisplay();
         Assert.assertEquals(expected, actual);
     }
