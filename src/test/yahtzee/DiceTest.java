@@ -2,6 +2,7 @@ package yahtzee;
 
 import org.junit.Before;
 import org.junit.Test;
+import sun.plugin.dom.exception.InvalidStateException;
 
 import static junit.framework.Assert.*;
 
@@ -92,5 +93,15 @@ public class DiceTest {
         assertEquals(1, diceNumbers[2]);
         assertEquals(2, diceNumbers[3]);
         assertEquals(2, diceNumbers[4]);
+    }
+
+    @Test(expected = InvalidStateException.class)
+    public void only_allow_three_rolls() {
+        IDieRoller roller =  new DieRoller();
+        Dice dice = new Dice(roller);
+        dice.roll();
+        dice.roll();
+        dice.roll();
+        dice.roll();
     }
 }

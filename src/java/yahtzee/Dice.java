@@ -1,5 +1,7 @@
 package yahtzee;
 
+import sun.plugin.dom.exception.InvalidStateException;
+
 import java.util.Arrays;
 
 public class Dice {
@@ -7,6 +9,7 @@ public class Dice {
     private IDieRoller roller;
     private int[] dice;
     private boolean[] heldDice;
+    private int rollCount = 0;
 
 
     public Dice (IDieRoller roller)
@@ -17,8 +20,10 @@ public class Dice {
         roll();
     }
 
-    public void roll()
+    public void roll() throws InvalidStateException
     {
+        if(rollCount==3)
+            throw new InvalidStateException("This turn has had three rolls already!");
         for (int i=0;i<5;i++)
         {
             if (!heldDice[i])
@@ -26,6 +31,7 @@ public class Dice {
                 dice[i] = roller.roll();
             }
         }
+        rollCount++;
     }
 
     public int[] getDice()
