@@ -22,7 +22,7 @@ public class UserConsoleTest {
         int[] scorecard = new int[15];
         Arrays.fill(scorecard, -1);
         userConsole.showScorecard(scorecard);
-        String expected = "CHANCE|\r\n";
+        String expected = "CHANCE|" + System.getProperty("line.separator");
         String actual = mockDisplay.getDisplay();
         Assert.assertEquals(expected, actual);
     }
