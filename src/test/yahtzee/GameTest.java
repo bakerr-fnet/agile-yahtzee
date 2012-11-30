@@ -2,18 +2,12 @@ package yahtzee;
 
 import org.junit.Assert;
 import org.junit.Test;
+import sun.plugin.dom.exception.InvalidStateException;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Student
- * Date: 29/11/12
- * Time: 16:19
- * To change this template use File | Settings | File Templates.
- */
 public class GameTest {
 
     @Test
@@ -35,6 +29,15 @@ public class GameTest {
         Game g = new Game(dieRoller);
         g.allocateRoll(Category.CHANCE, 1, 1, 1, 1, 1);
         assertEquals(5, g.getScoreForCategory(Category.CHANCE));
+    }
+
+    @Test(expected = InvalidStateException.class)
+    public void cannot_allocate_same_category_twice() {
+        IDieRoller dieRoller = new MockDieRoller(1, 1, 1, 1, 1);
+        Game g = new Game(dieRoller);
+        g.allocateRoll(Category.CHANCE, 1, 1, 1, 1, 1);
+        assertEquals(5, g.getScoreForCategory(Category.CHANCE));
+        g.allocateRoll(Category.CHANCE, 1, 1, 1, 1, 1);
     }
 
     @Test

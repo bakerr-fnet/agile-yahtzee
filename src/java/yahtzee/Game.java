@@ -1,5 +1,7 @@
 package yahtzee;
 
+import sun.plugin.dom.exception.InvalidStateException;
+
 import java.util.Arrays;
 
 /**
@@ -20,7 +22,10 @@ public class Game {
         Arrays.fill(scoresheet, -1);
     }
 
-    public void allocateRoll(Category c, int... dice) {
+    public void allocateRoll(Category c, int... dice) throws InvalidStateException {
+        if(scoresheet[c.ordinal()]>-1)
+            throw new InvalidStateException("The category "+c.name()+" has already been played.");
+
         //calculate score
         int score = c.calculateScore(dice);
 
