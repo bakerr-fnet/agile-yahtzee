@@ -14,23 +14,10 @@ import static org.junit.Assert.assertEquals;
 public class GameTest {
 
     @Test
-    public void can_allocate_roll_of_ones_to_category() {
-        int expected, actual;
+    public void allocate_roll_of_dice_to_ones() {
         Game g = new Game();
-        g.allocateRoll(Category.ONES, 1, 1, 1, 1, 1);
-        expected = 5;
-        actual = g.getScore(Category.ONES);
-        assertEquals(expected, actual);
-
-        g.allocateRoll(Category.ONES, 1, 2, 2, 2, 1);
-        expected = 2;
-        actual = g.getScore(Category.ONES);
-        assertEquals(expected, actual);
-
-        g.allocateRoll(Category.ONES, 3, 2, 2, 2, 5);
-        expected = 0;
-        actual = g.getScore(Category.ONES);
-        assertEquals(expected, actual);
+        g.allocateRoll(Category.ONES, 1, 1, 6, 1, 1);
+        assertEquals(4, g.getScoreForCategory(Category.ONES));
     }
 
     @Test
@@ -38,4 +25,10 @@ public class GameTest {
         assertEquals(15, new Game().getScoresheet().length);
     }
 
+    @Test
+    public void allocate_roll_of_dice_to_chance() {
+        Game g = new Game();
+        g.allocateRoll(Category.CHANCE, 1, 1, 1, 1, 1);
+        assertEquals(5, g.getScoreForCategory(Category.CHANCE));
+    }
 }
